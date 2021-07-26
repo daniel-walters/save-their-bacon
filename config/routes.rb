@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get "/home", to: "pages#home", as: "user_home"
   get "/account", to: "pages#account", as: "user_account"
+  get "/contact", to: "pages#contact", as: "contact"
 end

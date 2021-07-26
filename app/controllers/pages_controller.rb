@@ -11,6 +11,9 @@ class PagesController < ApplicationController
   def account
   end
 
+  def contact
+  end
+
   private
 
   def redirect_signed_in_user
