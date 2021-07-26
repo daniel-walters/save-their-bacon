@@ -9,6 +9,11 @@
 if User.count == 0
     User.create(
         email: "admin@admin.com",
-        password: "password"
+        password: "password",
+        role: 2,
+        first_name: "admin",
+        last_name: "admington",
+        date_of_birth: "01-01-1980",
+        approved: true
     )
 end
