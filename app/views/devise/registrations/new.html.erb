@@ -35,9 +35,7 @@
   </div>
 
   <div class="field">
-   
-      <%= f.hidden_field :role, value: params[:role] ? params[:role] : resource.role %>
-
+      <%= f.hidden_field :role, value: get_user_role_on_signup %>
   </div>
 
   <div class="actions">
