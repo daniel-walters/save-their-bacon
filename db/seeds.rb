@@ -35,3 +35,14 @@ if User.count == 0
     user.address = Address.first
     user.save
 end
+
+if Category.count == 0
+    Category.create(name: "Pig")
+end
+
+if Animal.count == 0
+    a = Animal.new(name: "Pete the Pig", year_born: 2010, weight: 100, bio: "he a pig oink oink mf", species: "big oinker", sponsored: false, sponsor_price: 2000)
+    a.category = Category.first
+    a.owner = User.first
+    a.save
+end

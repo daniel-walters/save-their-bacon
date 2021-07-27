@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_002353) do
+ActiveRecord::Schema.define(version: 2021_07_27_014902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,28 @@ ActiveRecord::Schema.define(version: 2021_07_27_002353) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["state_id"], name: "index_addresses_on_state_id"
+  end
+
+  create_table "animals", force: :cascade do |t|
+    t.string "name"
+    t.integer "year_born"
+    t.integer "weight"
+    t.text "bio"
+    t.string "species"
+    t.boolean "sponsored"
+    t.integer "sponsor_price"
+    t.bigint "category_id", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_animals_on_category_id"
+    t.index ["owner_id"], name: "index_animals_on_owner_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -60,6 +82,8 @@ ActiveRecord::Schema.define(version: 2021_07_27_002353) do
   end
 
   add_foreign_key "addresses", "states"
+  add_foreign_key "animals", "categories"
+  add_foreign_key "animals", "users", column: "owner_id"
   add_foreign_key "states", "countries"
   add_foreign_key "users", "addresses"
 end

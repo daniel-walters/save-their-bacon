@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @animal.name %>
+</p>
+
+<p>
+  <strong>Year born:</strong>
+  <%= @animal.year_born %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @animal.weight %>
+</p>
+
+<p>
+  <strong>Bio:</strong>
+  <%= @animal.bio %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @animal.species %>
+</p>
+
+<p>
+  <strong>Sponsored:</strong>
+  <%= @animal.sponsored %>
+</p>
+
+<p>
+  <strong>Sponsor price:</strong>
+  <%= @animal.sponsor_price %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @animal.category_id %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @animal.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_animal_path(@animal) %> |
+<%= link_to 'Back', animals_path %>
