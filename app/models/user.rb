@@ -4,6 +4,8 @@ class User < ApplicationRecord
   belongs_to :address
   has_many :sponsorships
 
+  accepts_nested_attributes_for :address
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
