@@ -6,8 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+if Country.count == 0
+    Country.create(name: "Australia")
+end
+
+if State.count == 0
+    state = State.new(name: "Western Australia")
+    state.country = Country.first
+    state.save
+end
+
+if Address.count == 0
+    address = Address.new(street_number: "123", street_name: "Fake St", postcode: "1234", suburb: "fake burb")
+    address.state = State.first
+    address.save
+end
+
 if User.count == 0
-    User.create(
+    user = User.new(
         email: "admin@admin.com",
         password: "password",
         role: 2,
@@ -16,4 +32,6 @@ if User.count == 0
         date_of_birth: "01-01-1980",
         approved: true
     )
+    user.address = Address.first
+    user.save
 end
