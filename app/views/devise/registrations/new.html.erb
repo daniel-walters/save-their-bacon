@@ -38,6 +38,39 @@
       <%= f.hidden_field :role, value: get_user_role_on_signup %>
   </div>
 
+  <%= f.fields_for :address, Address.new do |attr| %>
+    <div class="field">
+      <%= attr.label :street_number%><br />
+      <%= attr.text_field :street_number %>
+    </div>
+    <div class="field">
+    <%= attr.label :street_name%><br />
+    <%= attr.text_field :street_name %>
+    </div>
+    <div class="field">
+    <%= attr.label :suburb%><br />
+    <%= attr.text_field :suburb %>
+    </div>
+    <div class="field">
+    <%= attr.label :postcode%><br />
+    <%= attr.text_field :postcode %>
+    </div>
+   
+    <%= attr.fields_for :state, State.new do |s| %>
+      <div class="field">
+        <%= s.label :name %><br />
+        <%= s.text_field :name %>
+      </div>
+      <%= s.fields_for :country, Country.new do |c| %>
+        <div class="field">
+          <%= c.label :name %><br />
+          <%= c.text_field :name %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
