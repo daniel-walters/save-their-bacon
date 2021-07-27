@@ -12,15 +12,14 @@ class User < ApplicationRecord
     admin: 2
   }
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
   private
 
   #set all sanctuary account to unaproved on creation
   def set_approval
     self.sanctuary? ? self.approved = false : self.approved = true
-    #if !self.sanctuary?
-      #puts "not a sanctuary"
-      #self.approved = true
-      #puts "approved: #{self.approved?}"
-    #end
   end
 end
