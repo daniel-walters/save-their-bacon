@@ -2,6 +2,7 @@ class User < ApplicationRecord
   before_create :set_approval
 
   belongs_to :address
+  has_many :sponsorships
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

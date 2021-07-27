@@ -20,6 +20,10 @@ if Address.count == 0
     address = Address.new(street_number: "123", street_name: "Fake St", postcode: "1234", suburb: "fake burb")
     address.state = State.first
     address.save
+
+    address = Address.new(street_number: "456", street_name: "Fake St", postcode: "1234", suburb: "fake burb")
+    address.state = State.first
+    address.save
 end
 
 if User.count == 0
@@ -34,6 +38,18 @@ if User.count == 0
     )
     user.address = Address.first
     user.save
+
+    user = User.new(
+        email: "sponsor@sponsor.com",
+        password: "password",
+        role: 0,
+        first_name: "sponsor",
+        last_name: "sponny",
+        date_of_birth: "01-01-1980",
+        approved: true
+    )
+    user.address = Address.last
+    user.save
 end
 
 if Category.count == 0
@@ -45,4 +61,12 @@ if Animal.count == 0
     a.category = Category.first
     a.owner = User.first
     a.save
+end
+
+if Sponsorship.count == 0
+    s = Sponsorship.new(receipt: "blah")
+    s.owner = User.first
+    s.sponsor = User.last
+    s.animal = Animal.first
+    s.save
 end
