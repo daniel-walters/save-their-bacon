@@ -18,6 +18,10 @@ class User < ApplicationRecord
     "#{self.first_name} #{self.last_name}"
   end
 
+  def get_simple_location
+    "#{self.address.state.name}, #{self.address.state.country.name}"
+  end
+
   private
 
   #set all sanctuary account to unaproved on creation

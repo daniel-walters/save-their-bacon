@@ -10,6 +10,7 @@ class PagesController < ApplicationController
   end
 
   def account
+    @cur_user = User.eager_load(address: {state: :country}).find(current_user.id)
   end
 
   def contact
