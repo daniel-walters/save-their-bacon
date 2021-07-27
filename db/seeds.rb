@@ -11,9 +11,7 @@ if Country.count == 0
 end
 
 if State.count == 0
-    state = State.new(name: "Western Australia")
-    state.country = Country.first
-    state.save
+    state = State.create(name: "Western Australia", country_id: 1)
 end
 
 if Address.count == 0

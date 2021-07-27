@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  before_save :find_or_create_state
+  before_save :check_if_state_exists
   
   belongs_to :state
   has_many :users
@@ -8,7 +8,7 @@ class Address < ApplicationRecord
 
   private
 
-  def find_or_create_state
-    self.state = State.find_or_create_by(name: state.name)
-  end
+  def check_if_state_exists
+    self.state = State.find_by(name: state.name) if !State.find_by(name: state.name).nil?
+  end 
 end

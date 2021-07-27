@@ -51,3 +51,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.8"
+
+gem "city-state", "~> 0.1.0"
