@@ -1,5 +1,5 @@
 class State < ApplicationRecord
-  before_save :find_or_create_country
+  before_save :check_if_country_exists
 
   belongs_to :country
   has_many :addresses
@@ -8,8 +8,8 @@ class State < ApplicationRecord
 
   private
 
-  def find_or_create_country
-    self.country = Country.find_or_create_by(name: country.name)
+  def check_if_country_exists
+    self.country = Country.find_by(name: country.name) if !Country.find_by(name: country.name).nil?
   end
 
 end
