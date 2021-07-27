@@ -1,0 +1,7 @@
+<h1>The admin page</h1>
+<h2>Sanctuaries awaiting approval</h2>
+<% @unapproved.each do |user| %>
+    <p><%= user.full_name %></p>
+    <%= link_to "View User Info", admin_user_path(params[:id] = user.id) %>
+    <%= button_to "Approve", admin_user_path(params[:id] = user.id) %>
+<% end %>
