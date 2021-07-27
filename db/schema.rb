@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_014902) do
+ActiveRecord::Schema.define(version: 2021_07_27_021825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 2021_07_27_014902) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sponsorships", force: :cascade do |t|
+    t.string "receipt"
+    t.bigint "animal_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "sponsor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["animal_id"], name: "index_sponsorships_on_animal_id"
+    t.index ["owner_id"], name: "index_sponsorships_on_owner_id"
+    t.index ["sponsor_id"], name: "index_sponsorships_on_sponsor_id"
+  end
+
   create_table "states", force: :cascade do |t|
     t.string "name"
     t.bigint "country_id", null: false
@@ -84,6 +96,9 @@ ActiveRecord::Schema.define(version: 2021_07_27_014902) do
   add_foreign_key "addresses", "states"
   add_foreign_key "animals", "categories"
   add_foreign_key "animals", "users", column: "owner_id"
+  add_foreign_key "sponsorships", "animals"
+  add_foreign_key "sponsorships", "users", column: "owner_id"
+  add_foreign_key "sponsorships", "users", column: "sponsor_id"
   add_foreign_key "states", "countries"
   add_foreign_key "users", "addresses"
 end
