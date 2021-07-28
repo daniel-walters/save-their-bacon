@@ -2,42 +2,10 @@
 
 <h1>Animals</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Year born</th>
-      <th>Weight</th>
-      <th>Bio</th>
-      <th>Species</th>
-      <th>Sponsored</th>
-      <th>Sponsor price</th>
-      <th>Category</th>
-      <th>Owner</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @animals.each do |animal| %>
-      <tr>
-        <td><%= animal.name %></td>
-        <td><%= animal.year_born %></td>
-        <td><%= animal.weight %></td>
-        <td><%= animal.bio %></td>
-        <td><%= animal.species %></td>
-        <td><%= animal.sponsored %></td>
-        <td><%= animal.sponsor_price %></td>
-        <td><%= animal.category_id %></td>
-        <td><%= animal.owner_id %></td>
-        <td><%= link_to 'Show', animal %></td>
-        <td><%= link_to 'Edit', edit_animal_path(animal) %></td>
-        <td><%= link_to 'Destroy', animal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Animal', new_animal_path %>
+<% @animals.each do |animal| %>
+  <%= link_to animal_path(animal) do%>
+    <div>
+      <%= render partial: "animals/card", locals: {animal: animal}%>
+    </div>
+  <% end %>
+<% end %>
