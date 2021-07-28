@@ -53,7 +53,7 @@
 
   <div class="field">
     <%= form.label :media %>
-    <%= form.file_field :media, multiple: true %>
+    <%= form.file_field :media, multiple: true, accept: "image/jpg,image/png" %>
   </div>
 
   <% if current_user.admin? %>

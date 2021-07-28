@@ -2,10 +2,15 @@ class AnimalsController < ApplicationController
   before_action :set_animal, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :check_approved, only: [:new, :edit, :destroy]
+  before_action :get_categories, only: [:index]
 
   # GET /animals or /animals.json
   def index
-    @animals = Animal.all
+    if params[:category]
+      @animals = Animal.where(category_id: params[:category])
+    else
+      @animals = Animal.all
+    end
   end
 
   # GET /animals/1 or /animals/1.json
@@ -63,6 +68,10 @@ class AnimalsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_animal
       @animal = Animal.includes(:owner, :category).find(params[:id])
+    end
+
+    def get_categories
+      @categories = Category.all
     end
 
     # Only allow a list of trusted parameters through.

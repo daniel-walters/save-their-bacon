@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   belongs_to :address
   has_many :sponsorships
+  has_many :animals
 
   accepts_nested_attributes_for :address
 

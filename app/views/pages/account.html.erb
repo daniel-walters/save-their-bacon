@@ -3,3 +3,8 @@
 <p>Name: <%= @cur_user.full_name %></p>
 <p>Account Type: <%= @cur_user.role %></p>
 <p>Location: <%= @cur_user.get_simple_location %></p>
+
+<h3>Your <%= current_user.sanctuary? ? "Sanctuaries" : "Sponsored" %> Animals:</h3>
+<% @user_animals.each do |animal| %>
+    <%= animal.name %>
+<% end %>

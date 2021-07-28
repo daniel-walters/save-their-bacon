@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<h3>Search by Category: </h3>
+<%= link_to "All", animals_path %>
+<% @categories.each do |cat| %>
+  <%= link_to cat.name, animals_path(category: cat.id)%>
+<% end %>
 <h1>Animals</h1>
 
 <% @animals.each do |animal| %>

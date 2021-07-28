@@ -12,6 +12,11 @@ class PagesController < ApplicationController
 
   def account
     @cur_user = User.eager_load(address: {state: :country}).find(current_user.id)
+    if current_user.sanctuary?
+      @user_animals = Animal.where(owner: current_user)
+    else
+      @user_animals = Sponsorship.where(sponsor: current_user).map {|s| s.animal}
+    end
   end
 
   def contact
