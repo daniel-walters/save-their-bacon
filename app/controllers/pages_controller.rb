@@ -8,6 +8,7 @@ class PagesController < ApplicationController
   end
 
   def home
+    @featured_animal = Animal.all.sample
   end
 
   def account

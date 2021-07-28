@@ -3,3 +3,6 @@
 
 <%= link_to "Check in on your animals", user_account_path %>
 <%= link_to "View all the animals", animals_path %>
+
+<h3>Featured Animal:</h3>
+<%= render partial: "animals/card", locals: {animal: @featured_animal}%>
