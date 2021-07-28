@@ -37,11 +37,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :sponsored %>
-    <%= form.check_box :sponsored %>
-  </div>
-
-  <div class="field">
     <%= form.label :sponsor_price %>
     <%= form.number_field :sponsor_price %>
   </div>
@@ -52,14 +47,21 @@
   </div>
 
   <div class="field">
-    <%= form.label :owner_id %>
-    <%= form.text_field :owner_id %>
-  </div>
-
-  <div class="field">
     <%= form.label :profile_picture, "Animal Profile Picture" %>
     <%= form.file_field :profile_picture, accept: "image/jpg,image/png" %>
   </div>
+
+  <% if current_user.admin? %>
+    <div class="field">
+      <%= form.label :sponsored %>
+      <%= form.check_box :sponsored %>
+    </div>
+
+    <div class="field">
+      <%= form.label :owner_id %>
+      <%= form.number_field :owner_id %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

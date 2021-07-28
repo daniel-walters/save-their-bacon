@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_07_28_001211) do
     t.integer "weight"
     t.text "bio"
     t.string "species"
-    t.boolean "sponsored"
+    t.boolean "sponsored", default: false, null: false
     t.integer "sponsor_price"
     t.bigint "category_id", null: false
     t.bigint "owner_id", null: false

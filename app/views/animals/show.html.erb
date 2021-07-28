@@ -37,13 +37,15 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @animal.category_id %>
+  <%= @animal.category.name %>
 </p>
 
 <p>
   <strong>Owner:</strong>
-  <%= @animal.owner_id %>
+  <%= @animal.owner.full_name %>
 </p>
 
-<%= link_to 'Edit', edit_animal_path(@animal) %> |
+<%= image_tag image_select(@animal) %>
+
+<%= link_to 'Edit', edit_animal_path(@animal) if (current_user.admin? || current_user.sanctuary?) && current_user.approved? %>
 <%= link_to 'Back', animals_path %>

@@ -1,5 +1,7 @@
 class AnimalsController < ApplicationController
   before_action :set_animal, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
+  before_action :check_approved, only: [:new, :edit, :destroy]
 
   # GET /animals or /animals.json
   def index
@@ -22,6 +24,7 @@ class AnimalsController < ApplicationController
   # POST /animals or /animals.json
   def create
     @animal = Animal.new(animal_params)
+    @animal.owner = current_user
 
     respond_to do |format|
       if @animal.save
@@ -59,11 +62,15 @@ class AnimalsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_animal
-      @animal = Animal.find(params[:id])
+      @animal = Animal.includes(:owner, :category).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def animal_params
       params.require(:animal).permit(:name, :year_born, :weight, :bio, :species, :sponsored, :sponsor_price, :category_id, :owner_id, :profile_picture)
+    end
+
+    def check_approved
+      redirect_to animals_path, notice: "Your account is not yet approved, you can't list an animal." if !current_user.approved?
     end
 end
