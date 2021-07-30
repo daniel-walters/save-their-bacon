@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user]
 
   def index
+    @landing = true
   end
 
   def home

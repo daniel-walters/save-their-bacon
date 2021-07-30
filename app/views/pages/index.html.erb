@@ -1,3 +1,5 @@
-<p>This is the landing page it will have a hero img/text and 2 buttons for sign up</p>>
-<%= link_to "Sponsor", new_user_registration_path(:role => :sponsor) %>
-<%= link_to "Sanctuary", new_user_registration_path(:role => :sanctuary) %>
+<main>
+    <p class="text-primary">This is the landing page it will have a hero img/text and 2 buttons for sign up</p>
+    <%= link_to "Sponsor", new_user_registration_path(:role => :sponsor), class: "btn btn-primary btn-lg" %>
+    <%= link_to "Sanctuary", new_user_registration_path(:role => :sanctuary), class: "btn btn-primary btn-lg" %>
+</main>

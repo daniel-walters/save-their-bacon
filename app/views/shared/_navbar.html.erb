@@ -1,18 +1,21 @@
-<nav>
-    <%= link_to "Home", root_path %>
-    <%= link_to "Animals", animals_path %>
-    <%= link_to "Contact", contact_path%>
-
-    <% if user_signed_in? %>
-        <% if current_user.admin? %>
-            <%= link_to "Admin", admin_path %>
-            <%= link_to "Post an Animal", new_animal_path %>
-        <% elsif current_user.sanctuary? && current_user.approved? %>
-            <%= link_to "Post an Animal", new_animal_path %>
-        <% end %>
-        <%= link_to "Account", user_account_path %>
-        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-    <% else %>
-        <%= link_to "Sign In", new_user_session_path %>
-    <% end %>
-</nav>
+<!--<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SaveTheirBacon</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarItems">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarItems">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Home", root_path, class: "nav-link active", aria: {current: true} %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Animals", animals_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Animals", contact_path, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>-->

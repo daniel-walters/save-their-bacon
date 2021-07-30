@@ -55,7 +55,3 @@ gem "devise", "~> 4.8"
 gem "city-state", "~> 0.1.0"
 
 gem "aws-sdk-s3", "~> 1.96"
-
-gem "bootstrap", "~> 5.0.1"
-
-gem 'jquery-rails'
