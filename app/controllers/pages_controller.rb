@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   #send user to their home page if they are already signed in - otherwise go to index
   before_action :redirect_signed_in_user, only: [:index]
-  before_action :authenticate_user!, only: [:account]
+  before_action :authenticate_user!, only: [:account, :home]
   before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user]
 
   def index

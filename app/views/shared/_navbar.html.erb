@@ -1,21 +1,46 @@
-<!--<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">SaveTheirBacon</a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarItems">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarItems">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "Home", root_path, class: "nav-link active", aria: {current: true} %>
+<nav class="navbar navbar-expand-lg navbar-light <%= !@landing.present? ? "bg-dark-body border-bottom" : "" %>">
+  <a class="navbar-brand" href="/" id="brand">
+    <%= image_tag "logo", width: 40, height: 30, class: "d-inline-block align-top" %>
+    StB
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems" aria-controls="navbarItems" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarItems">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <%= "active" if current_page?(root_path) || current_page?(user_home_path) %>">
+        <%= link_to "Home", root_path, class: "nav-link", aria: {current: true} %>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle <%= "active" if current_page?(animals_path) || current_page?(new_animal_path) %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Animals</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "All Animals", animals_path, class: "dropdown-item" %>
+            <%= link_to "Post an Animal", new_animal_path, class: "dropdown-item #{display_post_animal}" %>
+          </div>
+      </li>
+      <li class="nav-item <%= "active" if current_page?(contact_path) %>">
+        <%= link_to "Contact", contact_path, class: "nav-link" %>
+      </li>
+      <% if user_signed_in? && current_user.admin? %>
+        <li class="nav-item <%= "active" if current_page?(admin_path) %>">
+          <%= link_to "Admin", admin_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item <%= "active" if current_page?(user_account_path) %>">
+          <%= link_to "Account", user_account_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Animals", animals_path, class: "nav-link" %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Animals", contact_path, class: "nav-link" %>
+      <% else %>
+        <li class="nav-item <%= "active" if current_page?(new_user_session_path) %>">
+          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
         </li>
-      </ul>
-    </div>
+      <% end %>
+    </ul>
   </div>
-</nav>-->
+</nav>

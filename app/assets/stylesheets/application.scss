@@ -13,5 +13,64 @@
  *= require_tree .
  *= require_self
  */
+ 
+ $theme-colors: (
+    "primary": #FCA32B,
+    "secondary": #3F827D,
+    "dark-body": #C6D2CC
+  );
 
- @import "bootstrap/scss/bootstrap"
+ $border-color: #3F827D;
+
+ @import "bootstrap/scss/bootstrap";
+
+ /******************
+ BOOTSTRAP RESPONSIVE BORDERS
+ *******************/
+ @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+      .border#{$infix}-top {      border-top: $border-width solid $border-color !important; }
+      .border#{$infix}-right {    border-right: $border-width solid $border-color !important; }
+      .border#{$infix}-bottom {   border-bottom: $border-width solid $border-color !important; }
+      .border#{$infix}-left {     border-left: $border-width solid $border-color !important; }
+  
+      .border#{$infix}-top-0 {    border-top: 0 !important; }
+      .border#{$infix}-right-0 {  border-right: 0 !important; }
+      .border#{$infix}-bottom-0 { border-bottom: 0 !important; }
+      .border#{$infix}-left-0 {   border-left: 0 !important; }
+  
+      .border#{$infix}-x {
+        border-left: $border-width solid $border-color !important;
+        border-right: $border-width solid $border-color !important;
+      }
+  
+      .border#{$infix}-y {
+        border-top: $border-width solid $border-color !important;
+        border-bottom: $border-width solid $border-color !important;
+      }
+    }
+  }
+
+ .brand-col {
+     color: #E7889E;
+ }
+
+ #brand {
+     color: #E7889E;
+ }
+
+#head-pic {
+    height: 100%;
+    width: auto;
+}
+
+ #card-pic {
+     max-width: 100%;
+     height: auto;
+ }
+
+ .active a {
+     color: #1C2C35 !important;
+ }

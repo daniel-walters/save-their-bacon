@@ -1,5 +1,10 @@
 <main>
-    <p class="text-primary">This is the landing page it will have a hero img/text and 2 buttons for sign up</p>
-    <%= link_to "Sponsor", new_user_registration_path(:role => :sponsor), class: "btn btn-primary btn-lg" %>
-    <%= link_to "Sanctuary", new_user_registration_path(:role => :sanctuary), class: "btn btn-primary btn-lg" %>
+    <div class="jumbotron text-center mx-auto" id="landing-jumbo">
+        <h1 class="display-4 text-primary font-weight-bold">Save Their Bacon</h1>
+        <p class="lead text-dark-body">Find a rescued animal to sponsor, or find sponsors for your sanctuaries animals</p>
+        <hr class="bg-primary" />
+        <p class="lead mt-3 text-dark-body">Get Started! Are you a: </p>
+        <%= link_to "Sponsor", new_user_registration_path(:role => :sponsor), class: "btn btn-secondary btn-lg mr-3 mt-4" %>            
+        <%= link_to "Sanctuary", new_user_registration_path(:role => :sanctuary), class: "btn btn-secondary btn-lg mt-4" %>
+    </div>
 </main>
