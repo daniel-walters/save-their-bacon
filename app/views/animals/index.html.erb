@@ -1,11 +1,30 @@
 <p id="notice"><%= notice %></p>
-
-<h3>Search by Category: </h3>
-<%= link_to "All", animals_path %>
-<% @categories.each do |cat| %>
-  <%= link_to cat.name, animals_path(category: cat.id)%>
-<% end %>
 <h1>Animals</h1>
+
+<h3>Search</h3>
+<%= form_with url: animals_path, method: :get do |form| %>
+  <h4>Category:</h4>
+  <%= form.radio_button :category, "all" %>
+  <%= form.label :category, "All"%>
+  <% @categories.each do |cat| %>
+    <%= form.radio_button :category, cat.id %>
+    <%= form.label :category, cat.name %>
+  <% end %>
+  <h4>Sponsored?</h4>
+  <%= form.radio_button :sponsored, 2 %>
+  <%= form.label :sponsored, "All" %>
+  <%= form.radio_button :sponsored, 1 %>
+  <%= form.label :sponsored, "Yes" %>
+  <%= form.radio_button :sponsored, 0 %>
+  <%= form.label :sponsored, "No" %>
+  <h4>Or if you already have your eyes on an animal</h4>
+  <%= form.label :name, "Animal Name" %>
+  <%= form.text_field :name %>
+  <h4>Submit</h4>
+  <%= form.submit "Search" %>
+<% end %>
+<%= link_to "Reset Search", animals_path %>
+
 
 <% @animals.each do |animal| %>
   <%= link_to animal_path(animal) do%>

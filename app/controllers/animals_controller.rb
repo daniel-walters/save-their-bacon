@@ -6,10 +6,24 @@ class AnimalsController < ApplicationController
 
   # GET /animals or /animals.json
   def index
+    @animals = Animal.all
     if params[:category]
-      @animals = Animal.where(category_id: params[:category])
-    else
-      @animals = Animal.all
+      if @categories.all.map {|c| c.id}.include? params[:category].to_i
+        @animals = @animals.where(category_id: params[:category])
+      end
+    end
+    if params[:sponsored]
+      case params[:sponsored]
+      when "0"
+        @animals = @animals.where(sponsored: false)
+      when "1"
+        @animals = @animals.where(sponsored: true)
+      end
+    end
+    if params[:name]
+      if !params[:name].empty?
+        @animals = @animals.where("name like ?", "%#{params[:name].downcase}%")
+      end
     end
   end
 

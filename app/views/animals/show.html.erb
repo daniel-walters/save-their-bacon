@@ -53,7 +53,7 @@
   <%= image_tag media%>
 <% end %>
 
-<% if (current_user.admin? || (current_user.sanctuary? && @animal.owner_id == current_user.id && current_user.approved?)) %>
+<% if (current_user&.admin? || (current_user&.sanctuary? && @animal.owner_id == current_user&.id && current_user&.approved?)) %>
   <%= link_to 'Edit', edit_animal_path(@animal) %>
   <%= link_to "Delete", animal_path, method: :delete %>
 <% end %>
