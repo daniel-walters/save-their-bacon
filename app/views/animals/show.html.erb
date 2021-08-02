@@ -48,9 +48,11 @@
 <h3>PROFILE PIC</h3>
 <%= image_tag image_select(@animal) %>
 
+<% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?) || (current_user&.sponsor? && @animal&.sponsorship&.sponsor == current_user))%>
 <h3>OTHER MEDIA</h3>
 <% @animal.media.each do |media| %>
   <%= image_tag media%>
+<% end %>
 <% end %>
 
 <% if (current_user&.admin? || (current_user&.sanctuary? && @animal.owner_id == current_user&.id && current_user&.approved?)) %>

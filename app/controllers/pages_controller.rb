@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   before_action :redirect_signed_in_user, only: [:index]
   before_action :authenticate_user!, only: [:account, :home, :admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
   before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
-
+  
   def index
     @landing = true
   end

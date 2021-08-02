@@ -42,8 +42,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
+    <%= form.label :category_id, "Category" %>
+    <%= form.select :category_id, @categories.map {|c| [c.name, c.id]} %>
   </div>
 
   <div class="field">

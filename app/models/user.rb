@@ -2,8 +2,8 @@ class User < ApplicationRecord
   before_create :set_approval
 
   belongs_to :address
-  has_many :sponsorships, foreign_key: "sponsor_id", dependent: :destroy
-  has_many :animals, foreign_key: "owner_id", dependent: :destroy
+  has_many :sponsorships, foreign_key: "sponsor_id", dependent: :destroy, inverse_of: "sponsor"
+  has_many :animals, foreign_key: "owner_id", dependent: :destroy, inverse_of: "owner"
 
   accepts_nested_attributes_for :address
 
