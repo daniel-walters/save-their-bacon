@@ -4,6 +4,53 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true %>
+  </div>
+
+   <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date_of_birth %><br />
+    <%= f.date_field :date_of_birth, autofocus: true%>
+  </div>
+
+  <%= f.fields_for :address, Address.new do |attr| %>
+    <div class="field">
+      <%= attr.label :street_number%><br />
+      <%= attr.text_field :street_number %>
+    </div>
+    <div class="field">
+    <%= attr.label :street_name%><br />
+    <%= attr.text_field :street_name %>
+    </div>
+    <div class="field">
+    <%= attr.label :suburb%><br />
+    <%= attr.text_field :suburb %>
+    </div>
+    <div class="field">
+    <%= attr.label :postcode%><br />
+    <%= attr.text_field :postcode %>
+    </div>
+   
+    <%= attr.fields_for :state, State.new do |s| %>
+      <div class="field">
+        <%= s.label :name, "State" %><br />
+        <%= s.text_field :name %>
+      </div>
+      <%= s.fields_for :country, Country.new do |c| %>
+        <div class="field">
+          <%= c.label :name, "Country" %><br />
+          <%= c.select :name, CS.countries.values %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
@@ -35,9 +82,5 @@
     <%= f.submit "Update" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>

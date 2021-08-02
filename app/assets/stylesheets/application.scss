@@ -17,7 +17,8 @@
  $theme-colors: (
     "primary": #FCA32B,
     "secondary": #3F827D,
-    "dark-body": #C6D2CC
+    "dark-body": #C6D2CC,
+    "new-bg": #fff
   );
 
  $border-color: #3F827D;
@@ -52,6 +53,7 @@
       }
     }
   }
+ /****************************/
 
  .brand-col {
      color: #E7889E;

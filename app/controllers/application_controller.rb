@@ -8,5 +8,10 @@ class ApplicationController < ActionController::Base
             address_attributes: [:street_number, :street_name, :postcode, :suburb, 
                 state_attributes: [:name, 
                     country_attributes: [:name]]]])
+
+        devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :date_of_birth, :role, 
+            address_attributes: [:street_number, :street_name, :postcode, :suburb, 
+                state_attributes: [:name, 
+                    country_attributes: [:name]]]])
     end
 end

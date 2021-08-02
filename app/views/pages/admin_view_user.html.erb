@@ -1,2 +1,6 @@
 <h1>Admin view user</h1>
-<%=params[:id]%>
+Name: <%= @user.full_name %>
+DOB: <%= @user.date_of_birth %>
+Role: <%= @user.role %>
+Address: <%= @user.address.street_number%> <%=@user.address.street_name%>, <%=@user.address.suburb%>, <%=@user.address.postcode%>, <%=@user.address.state.name%>, <%= @user.address.state.country.name %>
+<%= link_to "Delete", admin_user_deny_path(params[:id] = @user.id), method: :post %>

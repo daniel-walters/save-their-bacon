@@ -1,10 +1,13 @@
-<p>this is the account page - there will be user details + sponsored/owned animals</p>
-
+<h1>Account</h1>
 <p>Name: <%= @cur_user.full_name %></p>
 <p>Account Type: <%= @cur_user.role %></p>
 <p>Location: <%= @cur_user.get_simple_location %></p>
+<%= link_to "Edit Account", edit_user_registration_path %>
+<%= link_to "Delete Account", user_registration_path, method: :delete, data: {confirm: "Are you sure?"} %>
 
 <h3>Your <%= current_user.sanctuary? ? "Sanctuaries" : "Sponsored" %> Animals:</h3>
 <% @user_animals.each do |animal| %>
-    <%= animal.name %>
+    <%= link_to animal_path(animal), class: "text-body" do %>
+        <%= render partial: "animals/card", locals: {animal: animal}%>
+    <% end %>
 <% end %>

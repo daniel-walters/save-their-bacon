@@ -3,7 +3,7 @@
    <h1 class="brand-col">Save Their Bacon</h1>
 </div>
 <hr class="bg-secondary mt-5 mb-5" />
-<main class="container rounded bg-white">
+<main class="container rounded">
    <div class="row text-center justify-content-center mb-2 mb-md-5">
       <h1>Welcome, <%= current_user.first_name.capitalize %>!</h1>
    </div>
@@ -11,17 +11,17 @@
       <div class="col d-flex flex-column">
          <h3>News and Updates</h3>
          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+            <li class="list-group-item bg-new-bg">
                <%= link_to "How Farm Sanctuaries Are Changing the Way People View Animals", "https://www.onegreenplanet.org/animalsandnature/farm-sanctuaries-are-changing-how-people-see-animals/", class: "mt-2 mb-2 text-body", target: "_blank"%>
                <span class="badge badge-primary badge-pill ml-2">New!</span>
             </li>
-            <li class="list-group-item"><%= link_to "Why Go Vegan?", "https://vegan.com/info/why/", class: "mb-2 text-body", target: "_blank" %></li>
-            <li class="list-group-item"><%= link_to "Website Updates!", "#", class: "mb-2 text-body" %></li>
+            <li class="list-group-item bg-new-bg"><%= link_to "Why Go Vegan?", "https://vegan.com/info/why/", class: "mb-2 text-body", target: "_blank" %></li>
+            <li class="list-group-item bg-new-bg"><%= link_to "Website Updates!", "#", class: "mb-2 text-body" %></li>
          </ul>
       </div>
       <div class="col justify-content-center text-center order-3">
          <h3>Todays Featured Animal:</h3>
-         <%= link_to animal_path(@featured_animal) do %>
+         <%= link_to animal_path(@featured_animal), class: "text-body" do %>
             <%= render partial: "animals/card", locals: {animal: @featured_animal}%>
          <% end %>
       </div>

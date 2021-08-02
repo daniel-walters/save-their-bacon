@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
   #send user to their home page if they are already signed in - otherwise go to index
   before_action :redirect_signed_in_user, only: [:index]
-  before_action :authenticate_user!, only: [:account, :home]
-  before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user]
+  before_action :authenticate_user!, only: [:account, :home, :admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
+  before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
 
   def index
     @landing = true
@@ -25,15 +25,22 @@ class PagesController < ApplicationController
   end
 
   def admin
+    @users = User.where(approved: true)
     @unapproved = User.where(approved: false)
   end
 
   def admin_view_user
+    @user = User.find(params[:id])
   end
 
   def admin_approve_user
     User.find(params[:id]).update(approved: true)
     redirect_to admin_path, notice: "User Approved"
+  end
+
+  def admin_deny_user
+    User.find(params[:id]).destroy
+    redirect_to admin_path, notice: "User Denied and Account Deleted"
   end
 
   private
