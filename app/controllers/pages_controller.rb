@@ -9,7 +9,8 @@ class PagesController < ApplicationController
   end
 
   def home
-    @featured_animal = Animal.all.sample
+    srand (Date.today.year + Date.today.month + Date.today.day)
+    @featured_animal = Animal.find(rand(1..Animal.count))
   end
 
   def account
