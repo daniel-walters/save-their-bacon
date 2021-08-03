@@ -84,4 +84,9 @@
     <% end %>
   </div>
 <% end %>
+
+<% if !current_user&.sanctuary? && !@animal.sponsored? %>
+  <%=button_to "Sponsor: #{@animal.sponsor_price}", create_payment_path, method: :post, remote: true, params: {id: @animal.id} %>
+<% end %>
+
 <%= link_to 'Back', animals_path %>
