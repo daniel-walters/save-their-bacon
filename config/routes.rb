@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   post "/animals/media/:id", to: "animals#media_add", as: "animals_media"
   delete "/animals/media/:id", to: "animals#media_delete"
   post "/animals/new_message/:id", to: "animals#new_message", as: "new_message"
+  get "/payments/success", to: "payments#success", as: "payment_success"
+  post "/payments/webhook", to: "payments#webhook", as: "webhook"
+  post "/payments", to: "payments#create_payment_intent", as: "create_payment"
 end

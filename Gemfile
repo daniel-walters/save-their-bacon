@@ -55,3 +55,5 @@ gem "devise", "~> 4.8"
 gem "city-state", "~> 0.1.0"
 
 gem "aws-sdk-s3", "~> 1.96"
+
+gem "stripe", "~> 5.37"

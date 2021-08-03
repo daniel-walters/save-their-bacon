@@ -60,12 +60,3 @@ if Animal.count == 0
     a.owner = User.first
     a.save
 end
-
-if Sponsorship.count == 0
-    s = Sponsorship.new(receipt: "blah")
-    s.owner = User.first
-    s.sponsor = User.last
-    s.animal = Animal.first
-    s.save
-    Chat.create(sponsorship_id: 1)
-end
