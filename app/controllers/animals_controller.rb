@@ -1,5 +1,5 @@
 class AnimalsController < ApplicationController
-  before_action :set_animal, only: %i[ show edit update destroy ]
+  before_action :set_animal, only: %i[ show edit update destroy media_add media_delete ]
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :check_approved, only: [:new, :edit, :destroy]
   before_action :redirect_sponsor, only: [:new, :edit, :destroy]
@@ -78,6 +78,18 @@ class AnimalsController < ApplicationController
       format.html { redirect_to animals_url, notice: "Animal was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def media_add
+    params[:media]&.each do |img|
+      @animal.media.attach img
+    end
+    redirect_back(fallback_location: animal_path(@animal))
+  end
+
+  def media_delete
+    @animal.media.find(params[:media_id]).purge
+    redirect_back(fallback_location: animal_path(@animal))
   end
 
   private

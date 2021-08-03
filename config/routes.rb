@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "/admin-view/:id", to: "pages#admin_view_user", as: "admin_user"
   post "/admin-approve/:id", to: "pages#admin_approve_user", as: "admin_user_approve"
   post "/admin-deny/:id", to: "pages#admin_deny_user", as: "admin_user_deny"
+  post "/animals/media/:id", to: "animals#media_add", as: "animals_media"
+  delete "/animals/media/:id", to: "animals#media_delete"
 end

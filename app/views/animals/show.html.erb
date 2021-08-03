@@ -49,10 +49,22 @@
 <%= image_tag image_select(@animal) %>
 
 <% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?) || (current_user&.sponsor? && @animal&.sponsorship&.sponsor == current_user))%>
-<h3>OTHER MEDIA</h3>
-<% @animal.media.each do |media| %>
-  <%= image_tag media%>
-<% end %>
+  <h3>OTHER MEDIA</h3>
+  <% @animal.media.each do |media| %>
+    <%= image_tag media%>
+    <% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?)) %>
+      <%= link_to "Delete Image", animals_media_path(:id => @animal, :media_id => media.id), method: :delete, data: {confirm: "Are you sure?"} %>
+    <% end %>
+  <% end %>
+  <% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?)) %>
+    <%= form_with url: animals_media_path(@animal), method: :post do |form| %>
+      <div class="field">
+        <%= form.label :media, "Add Photos" %>
+        <%= form.file_field :media, multiple: true, accept: "image/jpg,image/png" %>
+        <%= form.submit "Add Photos" %>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if (current_user&.admin? || (current_user&.sanctuary? && @animal.owner_id == current_user&.id && current_user&.approved?)) %>

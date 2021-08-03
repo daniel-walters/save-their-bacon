@@ -51,11 +51,6 @@
     <%= form.file_field :profile_picture, accept: "image/jpg,image/png" %>
   </div>
 
-  <div class="field">
-    <%= form.label :media %>
-    <%= form.file_field :media, multiple: true, accept: "image/jpg,image/png" %>
-  </div>
-
   <% if current_user.admin? %>
     <div class="field">
       <%= form.label :sponsored %>
