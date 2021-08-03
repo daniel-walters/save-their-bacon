@@ -67,4 +67,5 @@ if Sponsorship.count == 0
     s.sponsor = User.last
     s.animal = Animal.first
     s.save
+    Chat.create(sponsorship_id: 1)
 end
