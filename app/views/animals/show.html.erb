@@ -28,6 +28,12 @@
 <p>
   <strong>Sponsored:</strong>
   <%= @animal.sponsored %>
+  <% if @animal.sponsored? %>
+      <% if @animal.sponsorship.owner.id == current_user.id || @animal.sponsorship.sponsor.id == current_user.id || current_user.admin?%>
+        Sponsored At: <%= @animal.sponsorship.created_at %>
+        Sponsorship Ends At: <%= @animal.sponsorship.created_at + 1.year %>
+      <% end %>
+  <% end %>
 </p>
 
 <p>
@@ -86,6 +92,7 @@
 <% end %>
 
 <% if !current_user&.sanctuary? && !@animal.sponsored? %>
+  <h5>Sponsor for 1 Year:</h5>
   <%=button_to "Sponsor: #{@animal.sponsor_price}", create_payment_path, method: :post, remote: true, params: {id: @animal.id} %>
 <% end %>
 
