@@ -18,7 +18,7 @@
     <%= f.date_field :date_of_birth, autofocus: true%>
   </div>
 
-  <%= f.fields_for :address, Address.new do |attr| %>
+  <%= f.fields_for :address, current_user.address do |attr| %>
     <div class="field">
       <%= attr.label :street_number%><br />
       <%= attr.text_field :street_number %>
@@ -36,12 +36,12 @@
     <%= attr.text_field :postcode %>
     </div>
    
-    <%= attr.fields_for :state, State.new do |s| %>
+    <%= attr.fields_for :state, current_user.address.state do |s| %>
       <div class="field">
         <%= s.label :name, "State" %><br />
         <%= s.text_field :name %>
       </div>
-      <%= s.fields_for :country, Country.new do |c| %>
+      <%= s.fields_for :country, current_user.address.state.country do |c| %>
         <div class="field">
           <%= c.label :name, "Country" %><br />
           <%= c.select :name, CS.countries.values %>
