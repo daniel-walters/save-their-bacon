@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   post "/admin-deny/:id", to: "pages#admin_deny_user", as: "admin_user_deny"
   post "/animals/media/:id", to: "animals#media_add", as: "animals_media"
   delete "/animals/media/:id", to: "animals#media_delete"
+  post "/animals/new_message/:id", to: "animals#new_message", as: "new_message"
 end

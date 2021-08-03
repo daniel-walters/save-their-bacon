@@ -1,5 +1,5 @@
 class AnimalsController < ApplicationController
-  before_action :set_animal, only: %i[ show edit update destroy media_add media_delete ]
+  before_action :set_animal, only: %i[ show edit update destroy media_add media_delete new_message]
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :check_approved, only: [:new, :edit, :destroy]
   before_action :redirect_sponsor, only: [:new, :edit, :destroy]
@@ -89,6 +89,11 @@ class AnimalsController < ApplicationController
 
   def media_delete
     @animal.media.find(params[:media_id]).purge
+    redirect_back(fallback_location: animal_path(@animal))
+  end
+
+  def new_message
+    Message.create(body: params[:message], sender_id: current_user.id, chat_id: @animal.sponsorship.chat.id)
     redirect_back(fallback_location: animal_path(@animal))
   end
 
