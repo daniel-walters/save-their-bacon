@@ -2,14 +2,14 @@
 <h3>Sanctuaries Awaiting Approval:</h3>
 <% @unapproved.each do |user| %>
     <p><%= user.full_name %></p>
-    <%= link_to "View User Info", admin_user_path(params[:id] = user.id) %>
-    <%= link_to "Approve", admin_user_approve_path(params[:id] = user.id), method: :post %>
-    <%= link_to "Deny", admin_user_deny_path(params[:id] = user.id), method: :post %>
+    <%= link_to "View User Info", admin_user_path(user.id) %>
+    <%= link_to "Approve", admin_user_approve_path(user.id), method: :post %>
+    <%= link_to "Deny", admin_user_deny_path(user.id), method: :post %>
 <% end %>
 
 <h3>Approved Accounts:</h3>
 <% @users.each do |user| %>
     <p><%= user.full_name %> - <%= user.role %></p>
-    <%= link_to "View", admin_user_path(params[:id] = user.id) %>
-    <%= link_to "Delete", admin_user_deny_path(params[:id] = user.id), method: :post %>
+    <%= link_to "View", admin_user_path(user.id) %>
+    <%= link_to "Delete", admin_user_deny_path(user.id), method: :post %>
 <% end %>

@@ -29,7 +29,7 @@
   <strong>Sponsored:</strong>
   <%= @animal.sponsored %>
   <% if @animal.sponsored? %>
-      <% if @animal.sponsorship.owner.id == current_user.id || @animal.sponsorship.sponsor.id == current_user.id || current_user.admin?%>
+      <% if user_is_animal_sponsor(@animal) || user_is_sanctuary_and_owner(@animal) || current_user&.admin? %>
         Sponsored At: <%= @animal.sponsorship.created_at %>
         Sponsorship Ends At: <%= @animal.sponsorship.created_at + 1.year %>
       <% end %>
@@ -54,15 +54,15 @@
 <h3>PROFILE PIC</h3>
 <%= image_tag image_select(@animal) %>
 
-<% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?) || (current_user&.sponsor? && @animal&.sponsorship&.sponsor == current_user))%>
+<% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal) || user_is_animal_sponsor(@animal))%>
   <h3>OTHER MEDIA</h3>
   <% @animal.media.each do |media| %>
     <%= image_tag media%>
-    <% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?)) %>
+    <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
       <%= link_to "Delete Image", animals_media_path(:id => @animal, :media_id => media.id), method: :delete, data: {confirm: "Are you sure?"} %>
     <% end %>
   <% end %>
-  <% if (current_user&.admin? || (current_user&.sanctuary? && @animal&.owner_id == current_user&.id && current_user&.approved?)) %>
+  <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
     <%= form_with url: animals_media_path(@animal), method: :post do |form| %>
       <div class="field">
         <%= form.label :media, "Add Photos" %>
@@ -73,12 +73,12 @@
   <% end %>
 <% end %>
 
-<% if (current_user&.admin? || (current_user&.sanctuary? && @animal.owner_id == current_user&.id && current_user&.approved?)) %>
+<% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
   <%= link_to 'Edit', edit_animal_path(@animal) %>
   <%= link_to "Delete", animal_path, method: :delete %>
 <% end %>
 
-<% if (@animal.sponsorship && (current_user&.admin? || @animal.sponsorship&.owner == current_user || @animal.sponsorship&.sponsor == current_user))%>
+<% if (@animal.sponsorship && (current_user&.admin? || user_is_sanctuary_and_owner(@animal) || user_is_animal_sponsor(@animal)))%>
   <div>
     <% @animal.sponsorship.chat.messages.each do |msg| %>
       <p><%=msg.sender.first_name %> - <%=msg.body%></p>

@@ -3,19 +3,20 @@ class PagesController < ApplicationController
   before_action :redirect_signed_in_user, only: [:index]
   before_action :authenticate_user!, only: [:account, :home, :admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
   before_action :authorize_admin, only: [:admin, :admin_view_user, :admin_approve_user, :admin_deny_user]
+  before_action :get_user, only: [:admin_approve_user, :admin_view_user, :admin_deny_user]
   
   def index
     @landing = true
   end
 
   def home
+    #create random seed using the date to get constant 'daily featured animal' (assuming Animal.count stays constant)
     srand (Date.today.year + Date.today.month + Date.today.day)
     @featured_animal = Animal.find(rand(1..Animal.count))
   end
 
   def account
-    @cur_user = User.eager_load(address: {state: :country}).find(current_user.id)
-    if current_user.sanctuary?
+    if current_user&.sanctuary?
       @user_animals = Animal.where(owner: current_user)
     else
       @user_animals = Sponsorship.where(sponsor: current_user).map {|s| s.animal}
@@ -31,16 +32,15 @@ class PagesController < ApplicationController
   end
 
   def admin_view_user
-    @user = User.find(params[:id])
   end
 
   def admin_approve_user
-    User.find(params[:id]).update(approved: true)
+    @user.update(approved: true)
     redirect_to admin_path, notice: "User Approved"
   end
 
   def admin_deny_user
-    User.find(params[:id]).destroy
+    @user.destroy
     redirect_to admin_path, notice: "User Denied and Account Deleted"
   end
 
@@ -53,4 +53,8 @@ class PagesController < ApplicationController
   def authorize_admin
     redirect_to root_path, notice: "You don't have access to admin pages." if !current_user.admin?
   end 
+
+  def get_user
+    @user = User.find(params[:id])
+  end
 end
