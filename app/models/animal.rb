@@ -6,6 +6,10 @@ class Animal < ApplicationRecord
   has_one_attached :profile_picture
   has_many_attached :media
 
+  def get_age
+    Time.now.year - self.year_born
+  end 
+
   private
 
   def downcase_name
