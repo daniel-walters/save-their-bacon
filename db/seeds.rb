@@ -15,11 +15,15 @@ if State.count == 0
 end
 
 if Address.count == 0
-    address = Address.new(street_number: "123", street_name: "Fake St", postcode: "1234", suburb: "fake burb")
+    address = Address.new(street_number: "123", street_name: "Admin St", postcode: "1234", suburb: "Admington")
     address.state = State.first
     address.save
 
-    address = Address.new(street_number: "456", street_name: "Fake St", postcode: "1234", suburb: "fake burb")
+    address = Address.new(street_number: "123", street_name: "Sponsor St", postcode: "2345", suburb: "Sponsor Lake")
+    address.state = State.first
+    address.save
+
+    address = Address.new(street_number: "123", street_name: "Sanctuary St", postcode: "3456", suburb: "Sanctuary Hills")
     address.state = State.first
     address.save
 end
@@ -29,8 +33,8 @@ if User.count == 0
         email: "admin@admin.com",
         password: "password",
         role: 2,
-        first_name: "admin",
-        last_name: "admington",
+        first_name: "Admin",
+        last_name: "Admins",
         date_of_birth: "01-01-1980",
         approved: true
     )
@@ -41,17 +45,36 @@ if User.count == 0
         email: "sponsor@sponsor.com",
         password: "password",
         role: 0,
-        first_name: "sponsor",
-        last_name: "sponny",
+        first_name: "Spon",
+        last_name: "Sor",
         date_of_birth: "01-01-1980",
         approved: true
     )
-    user.address = Address.last
+    user.address = Address.find(2)
     user.save
+
+    user = User.new(
+        email: "sanctuary@sanctuary.com",
+        password: "password",
+        role: 1,
+        first_name: "Sanc",
+        last_name: "Tuary",
+        date_of_birth: "01-01-1980",
+        approved: true
+    )
+    user.address = Address.find(2)
+    user.save    
 end
 
 if Category.count == 0
     Category.create(name: "Pig")
+    Category.create(name: "Cow")
+    Category.create(name: "Sheep")
+    Category.create(name: "Chicken")
+    Category.create(name: "Horse")
+    Category.create(name: "Goat")
+    Category.create(name: "Duck")
+    Category.create(name: "Turkey")
 end
 
 if Animal.count == 0

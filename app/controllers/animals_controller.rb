@@ -44,7 +44,10 @@ class AnimalsController < ApplicationController
 
   # POST /animals or /animals.json
   def create
+    price_dollars = params[:animal][:sponsor_price].to_f
+    price_cents = (price_dollars * 100.0).to_i
     @animal = Animal.new(animal_params)
+    @animal.sponsor_price = price_cents
     @animal.owner = current_user
 
     respond_to do |format|
