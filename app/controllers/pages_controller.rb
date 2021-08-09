@@ -13,6 +13,8 @@ class PagesController < ApplicationController
     #create random seed using the date to get constant 'daily featured animal' (assuming Animal.count stays constant)
     srand (Date.today.year + Date.today.month + Date.today.day)
     @featured_animal = Animal.find(rand(1..Animal.count))
+
+    @articles = Article.last(5).reverse
   end
 
   def account

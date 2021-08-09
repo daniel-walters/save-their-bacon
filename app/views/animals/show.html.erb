@@ -80,7 +80,7 @@
   <div class="row mt-5 justify-content-center flex-column align-items-center">
     <% if (@animal.sponsorship && (current_user&.admin? || user_is_sanctuary_and_owner(@animal) || user_is_animal_sponsor(@animal)))%>
     <p>Have a question about <%=@animal.name%>, or want to request a photo. Chat below: </p>
-      <div class="border border-primary p-2">
+      <div class="border border-primary p-2 w-50">
         <% @animal.sponsorship.chat.messages.each do |msg| %>
           <p class=<%=current_user&.id == msg.sender.id ? "text-left" : "text-right" %>><%=msg.sender.first_name %> - <%=msg.body%></p>
         <% end %>

@@ -73,13 +73,30 @@ if Category.count == 0
     Category.create(name: "Chicken")
     Category.create(name: "Horse")
     Category.create(name: "Goat")
-    Category.create(name: "Duck")
-    Category.create(name: "Turkey")
 end
 
 if Animal.count == 0
-    a = Animal.new(name: "Pete the Pig", year_born: 2010, weight: 100, bio: "he a pig oink oink mf", species: "big oinker", sponsored: false, sponsor_price: 2000)
+    a = Animal.new(name: "Ham Solo", year_born: 2010, weight: 100, bio: "Proving pigs can fly", species: "Chonker", sponsored: false, sponsor_price: 5000)
     a.category = Category.first
-    a.owner = User.first
+    a.owner = User.find(3)
+    a.profile_picture.attach(io: File.open(Rails.root.join("app", "assets", "images", "pig.jpg")), filename: 'pig.jpg')
     a.save
+
+    a = Animal.new(name: "Vladimir Mootin", year_born: 2015, weight: 120, bio: "Theres a MosCOW joke there somewhere", species: "President", sponsored: false, sponsor_price: 6000)
+    a.category = Category.find(2)
+    a.owner = User.find(3)
+    a.profile_picture.attach(io: File.open(Rails.root.join("app", "assets", "images", "cow.jpg")), filename: 'cow.jpg')
+    a.save 
+
+    a = Animal.new(name: "Meryl Sheep", year_born: 2008, weight: 80, bio: "A Farmous Actress", species: "Floofer", sponsored: false, sponsor_price: 10000)
+    a.category = Category.find(3)
+    a.owner = User.find(3)
+    a.profile_picture.attach(io: File.open(Rails.root.join("app", "assets", "images", "sheep.jpg")), filename: 'sheep.jpg')
+    a.save
+end
+
+if Article.count == 0
+    Article.create(title: "Article 1", body: "This is the article")
+    Article.create(title: "Article 2", body: "This is the article")
+    Article.create(title: "Website Updates", body: "I did a thing to the website")
 end

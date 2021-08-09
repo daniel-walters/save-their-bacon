@@ -1,5 +1,5 @@
 class Animal < ApplicationRecord
-  before_create :downcase_name
+  before_create :capitalize_name
   belongs_to :category
   belongs_to :owner, foreign_key: "owner_id", class_name: "User"
   has_one :sponsorship
@@ -12,7 +12,7 @@ class Animal < ApplicationRecord
 
   private
 
-  def downcase_name
-    self.name = self.name.downcase
+  def capitalize_name
+    self.name = self.name.capitalize
   end
 end
