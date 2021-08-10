@@ -63,7 +63,8 @@ if User.count == 0
         approved: true
     )
     user.address = Address.find(2)
-    user.save    
+    user.save  
+    user.update(approved: true)  
 end
 
 if Category.count == 0
