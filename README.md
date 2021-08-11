@@ -14,11 +14,12 @@ To sponsor an animal, currently someone may have to visit several websites befor
     To provide a website that can connect animal sanctuaries with potential sponsors, while providing a platform to upload media that is exclusive to an animals sponsor.  
 
  * ### Functionality/Features
-    * Sign up as a Sponsor or Sanctuary
-    * Sanctuaries must be approved by an admin before they are allowed to post their animals for security/fraud reasons
-    * Animals can be sponsored through the website
-    * Sponsors gain access to exclusive content which can be uploaded by the animals owner.
-    * Sponsors can easily communicate with a sponsored animals owner if they have specific questions about them.  
+    * There are 2 types of users, Sponsors and Sanctuaries. A user can sign up as either from the landing page 
+    * Only Sanctuaries can post an animal to the website, but only once their account is approved by and admin. 
+    * An admin can do this through the admin dashboard once logged in. 
+    * An admin can also create, edit and delete articles from the home page or when viewing an article.
+    * Sponsors can immedietly sponsor an animal without approval, they can use the search feature on the All Animals page to find one.
+    * After payment the sponsor has access to a chat with the sanctuary and media that can be uploaded by the sanctuary. This is accessible from the specific animals page which can be found on the all animals page or the sponsors or sanctuaries account page.
 
  * ### Sitemap
     ![Sitemap](/docs/stb-sitemap.png "Sitemap")
@@ -44,6 +45,7 @@ To sponsor an animal, currently someone may have to visit several websites befor
     * js.erb used for Stripe Integration
     * Deployed on Heroku
     * Amazon S3 for photo storage
+    * Devise for User Authentication
 ## User Stories
 * As a Sanctuary I want to post my animals so they can be sponsored
 * As an Admin I want to make posts to keep website users up to date
@@ -57,11 +59,30 @@ To sponsor an animal, currently someone may have to visit several websites befor
 ## Original ERD
 ![Original-ERD](/docs/erd.jpeg "ERD")
 ## High Level Components
-
+* ### Pages Controller & Views  
+   Takes care of most the authorization through before_actions and handle actions/views that aren't attached to a model. The controller also grabs data from the database to be viewed, e.g. A users animals on their account page and a list of articles on the home page.
+   * #### Admin Features
+      The Admin Dashboard allows admins to view all users signed up to the app. The admin can view and delete users, and approve users accounts.
+   
+* ### Payments Controller & Views
+   The payments controller sets up a stripe session for the user and animal they want to sponsor. It then sends them to a successful purchase page. 
+   
+   * #### Webhook
+      The webhook post request logic is handled in the payments controller. This is called whenever a payment is successful. It sets up a sponsorship model between the user and animal, and updates the animals sponsored status.
+* ### Animals Controller & Views
+   Controllers and views to do with handling CRUD operations for the animals model. 
+   * #### Search Feature
+      A search feature is implemented as part of the show all animals (index) page. The controller queries the animals model based on options selected in the view. The results are then presented to the user in the view. 
+   * #### Media Attachments
+      As an animal can have multiple image attachments, extra actions were set up to allow a user to add and delete specific images without having to edit the whole record.
+* ### Articles Controller & Views
+   Controller and views to do with handling CRUD operations for the articles model.
+* ### Navbar Partial  
+   The navbar partial contains logic to determine what links a user should be able to see and click on.
 ## Third Party Services
 * Stripe for payment
 * Amazon S3 for storage
-* Devise for Authorization
+* Devise for Authentication
 * Bootstrap for Styling
 ## Models and their Active Record Associations
 A User has exactly 1 adrress, which has exactly 1 state, which has exactly 1 country.
