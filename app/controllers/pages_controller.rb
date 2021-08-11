@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   before_action :get_user, only: [:admin_approve_user, :admin_view_user, :admin_deny_user]
   
   def index
+    #var used for styling
     @landing = true
   end
 
@@ -14,6 +15,7 @@ class PagesController < ApplicationController
     srand (Date.today.year + Date.today.month + Date.today.day)
     @featured_animal = Animal.find(rand(1..Animal.count))
 
+    #get most recent 5 articles
     @articles = Article.last(5).reverse
   end
 
@@ -36,11 +38,13 @@ class PagesController < ApplicationController
   def admin_view_user
   end
 
+  #approve user and redirect
   def admin_approve_user
     @user.update(approved: true)
     redirect_to admin_path, notice: "User Approved"
   end
 
+  #delete user and redirect
   def admin_deny_user
     @user.destroy
     redirect_to admin_path, notice: "User Denied and Account Deleted"
@@ -48,10 +52,12 @@ class PagesController < ApplicationController
 
   private
 
+  #redirect a user if they are signed in
   def redirect_signed_in_user
     redirect_to user_home_path if user_signed_in?
   end
 
+  #redirect user if they arent an admin
   def authorize_admin
     redirect_to root_path, notice: "You don't have access to admin pages." if !current_user.admin?
   end 

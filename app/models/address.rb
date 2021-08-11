@@ -8,6 +8,7 @@ class Address < ApplicationRecord
 
   private
 
+  #use a state already in db if duplicate
   def check_if_state_exists
     self.state = State.find_by(name: state.name) if !State.find_by(name: state.name).nil?
   end 

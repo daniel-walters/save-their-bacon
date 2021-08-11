@@ -8,6 +8,8 @@ class AnimalsController < ApplicationController
 
   # GET /animals or /animals.json
   def index
+    #set @animals to all and keep updating based on search queries
+    #rails combines all the where queries into 1.
     @animals = Animal.all
     if params[:category]
       if @categories.all.map {|c| c.id}.include? params[:category].to_i
@@ -83,6 +85,7 @@ class AnimalsController < ApplicationController
     end
   end
 
+  # update @animal to attach pictures
   def media_add
     params[:media]&.each do |img|
       @animal.media.attach img
@@ -90,6 +93,7 @@ class AnimalsController < ApplicationController
     redirect_back(fallback_location: animal_path(@animal))
   end
 
+  # delete specific attachment from @animal
   def media_delete
     @animal.media.find(params[:media_id]).purge
     redirect_back(fallback_location: animal_path(@animal))
@@ -110,6 +114,7 @@ class AnimalsController < ApplicationController
       @categories = Category.all
     end
 
+    # redirect a user if they are a sponsor
     def redirect_sponsor
       redirect_to animals_path, notice: "sponsors do not have access to this" if current_user&.sponsor?
     end
@@ -119,10 +124,12 @@ class AnimalsController < ApplicationController
       params.require(:animal).permit(:name, :year_born, :weight, :bio, :species, :sponsored, :sponsor_price, :category_id, :owner_id, :profile_picture, media: [])
     end
 
+    # redirect a user if they are not approved
     def check_approved
       redirect_to animals_path, notice: "Your account is not yet approved, you can't list an animal." if !current_user&.approved?
     end
 
+    # redirect a user if they are not the animals owner
     def check_ownership
       redirect_to animals_path, notice: "You are not authorized for that action." if !current_user&.admin? && Animal.find(params[:id]).owner != current_user
     end

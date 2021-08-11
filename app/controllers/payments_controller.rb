@@ -31,6 +31,7 @@ class PaymentsController < ApplicationController
         @session_id = session.id
     end
 
+    #create sponsorship and chat on stripe success
     def webhook
         payment_id = params[:data][:object][:payment_intent]
         payment = Stripe::PaymentIntent.retrieve(payment_id)
