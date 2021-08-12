@@ -2,6 +2,8 @@ class State < ApplicationRecord
   before_save :check_if_country_exists
   before_create :capitalize_name
 
+  validates :name, presence: true
+
   belongs_to :country
   has_many :addresses
 

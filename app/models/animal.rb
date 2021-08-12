@@ -6,6 +6,13 @@ class Animal < ApplicationRecord
   has_one_attached :profile_picture
   has_many_attached :media
 
+  validates :name, presence: true
+  validates :year_born, numericality: {only_integer: true}, presence: true
+  validates :weight, numericality: true, presence: true
+  validates :bio, presence: true
+  validates :species, presence: true
+  validates :sponsor_price, presence: true, numericality: true
+
   def get_age
     Time.now.year - self.year_born
   end 

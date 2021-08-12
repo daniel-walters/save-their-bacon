@@ -55,7 +55,22 @@ To sponsor an animal, currently someone may have to visit several websites befor
 * As a Sponsor I want to filter through animals to find one I want to sponsor
 * As a sanctuary I want to be able to upload photos of my animal to give the sponsor something in return
 ## Wireframes
-![Wireframes](/docs/wireframe.png "Wireframes")
+* Landing Page
+   ![Landing-Page](/docs/wireframe/Landing.png "Landing Page")
+* Home Page
+   ![Home-Page](/docs/wireframe/Home.png "Home Page")
+* Account Page
+   ![Account-Page](/docs/wireframe/Account.png "Account Page")
+* Admin Page
+   ![Admin-Page](/docs/wireframe/Admin.png "Admin Page")
+* All Animals Page
+   ![All-Animals-Page](/docs/wireframe/All-Animals.png "All Animals Page")
+* Show Animal Page
+   ![Show-Animal-Page](/docs/wireframe/Show-Animal.png "Show Animal Page")
+* Sign Up Page
+   ![Sign-Up-Page](/docs/wireframe/Sign-Up.png "Sign Up Page")
+* Post Animal Page
+   ![Post-Animal-Page](/docs/wireframe/Post-Animal.png "Post Animal Page")
 ## Original ERD
 ![Original-ERD](/docs/erd.jpeg "ERD")
 ## High Level Components

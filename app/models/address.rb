@@ -1,6 +1,9 @@
 class Address < ApplicationRecord
   before_save :check_if_state_exists
-  
+
+  validates :postcode, numericality: true
+  validates :street_number, numericality: true
+
   belongs_to :state
   has_many :users
 
