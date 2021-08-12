@@ -1,0 +1,8 @@
+<% content_for(:html_title) { 'Animal - New' } %>
+<main class="container w-50">
+    <h1>Your Animal</h1>
+
+    <%= render 'form', animal: @animal %>
+
+    <%= link_to 'Back', animals_path %>
+</main>

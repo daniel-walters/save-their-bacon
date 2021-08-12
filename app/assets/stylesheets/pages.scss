@@ -1,0 +1,20 @@
+// Place all the styles related to the Pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.bg-img-landing {
+        background-image: url(image-path("bg2.jpg"));
+        height: 100vh;
+        width: 100vw;
+        background-repeat:no-repeat;
+        background-size: cover;
+}
+
+.head {
+        width: 100%;
+        height: 20vh;
+}
+
+#landing-jumbo {
+        background: rgba(0, 0, 0, 0.3);
+}

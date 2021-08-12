@@ -1,0 +1,63 @@
+<% content_for(:html_title) { 'Animals' } %>
+<main class="container">
+  <div class="row justify-content-center">
+    <h1>Animals</h1>
+  </div>
+  <div class="row mt-5 justify-content-center">
+    <h3>Search</h3>
+  </div>
+  <div class="row justify-content-center">
+    <%= form_with url: animals_path, method: :get, class: "w-100" do |form| %>
+      <div class="row justify-content-center">
+        <div class="form-group col text-right">
+          <h4>Category:</h4>
+          <div class="form-check form-check-inline">
+            <%= form.radio_button :category, "all", class: "form-check-input" %> 
+            <%= form.label :category, "All", class: "form-check-label"%> 
+          </div>
+          <% @categories.each do |cat| %>
+            <div class="form-check form-check-inline">
+              <%= form.radio_button :category, cat.id, class: "form-check-input" %> 
+              <%= form.label :category, cat.name, class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group col text-left ml-5">
+          <h4>Sponsored?</h4>
+          <div class="form-check form-check-inline">
+            <%= form.radio_button :sponsored, 2, class: "form-check-input" %>
+            <%= form.label :sponsored, "All", class: "form-check-label" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= form.radio_button :sponsored, 1, class: "form-check-input" %>
+            <%= form.label :sponsored, "Yes", class: "form-check-label" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= form.radio_button :sponsored, 0, class: "form-check-input" %>
+            <%= form.label :sponsored, "No", class: "form-check-label" %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row justify-content-center">
+        <h4>Already know who you're looking for?</h4>
+        <%= form.text_field :name, class: "form-control", placeholder: "Animal's Name" %>
+      </div>
+      <div class="form-group row justify-content-center">
+        <%= form.submit "Search" %>
+      </div>
+    <% end %>
+    <%= link_to "Reset Search", animals_path %>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <h3 class="mb-3 d-block text-center w-100">Animals Found</h3>
+    <section class="d-flex flex-wrap justify-content-center">
+      <% @animals.each do |animal| %>
+        <div class="text-center mr-3" style="min-width: 150px; width: 16%;">
+          <%= link_to animal_path(animal) do%>
+            <%= render partial: "animals/card", locals: {animal: animal}, class: "text-primary"%>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,8 @@
+<% content_for(:html_title) { 'Article - New' } %>
+<main class="container w-50">
+<h1>New Article</h1>
+
+<%= render 'form', article: @article %>
+
+<%= link_to 'Back', user_home_path %>
+</main>

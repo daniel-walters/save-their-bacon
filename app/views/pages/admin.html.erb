@@ -1,0 +1,32 @@
+<% content_for(:html_title) { 'Admin Dashboard' } %>
+<main class="container">
+    <div class="row text-center justify-content-center mb-5">
+        <h1>Admin - Dashboard</h1>
+    </div>
+    <div class="row justify-content-center">
+        <section class="col justify-content-center text-center">
+            <h3>Sanctuaries Awaiting Approval:</h3>
+            <% if @unapproved.length == 0 %>  
+                <p>There's nothing to display here.</p>          
+            <% end %>
+            <% @unapproved.each do |user| %>
+                <div class="mt-2 mb-3">
+                    <p><%= user.full_name %></p>
+                    <%= link_to "View User Info", admin_user_path(user.id) %>
+                    <%= link_to "Approve", admin_user_approve_path(user.id), method: :post %>
+                    <%= link_to "Deny", admin_user_deny_path(user.id), method: :post %>
+                </div>
+            <% end %>
+        </section>
+        <section class="col justify-content-center text-center">
+            <h3>Approved Accounts:</h3>
+            <% @users.each do |user| %>
+                <div class="mt-2 mb-3">
+                    <p><%= user.full_name %> - <%= user.role.capitalize %></p>
+                    <%= link_to "View", admin_user_path(user.id), class: "mr-3"%>
+                    <%= link_to "Delete", admin_user_deny_path(user.id), method: :post %>
+                </div>
+            <% end %>        
+        </section>
+    </div>
+</main>

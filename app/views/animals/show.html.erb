@@ -1,0 +1,101 @@
+<% content_for(:html_title) { "#{@animal.name}" } %>
+<main class="container">
+  <div class="row">
+    <div class="col text-center">
+      <h3><%=@animal.name%></h3>
+      <%= image_tag image_select(@animal), class: "mb-3", style: "width: 25%; min-width: 300px;" %>
+      <h5>Bio:</h5>
+      <p><%=@animal.bio%></p>
+      <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
+        <%= link_to 'Edit', edit_animal_path(@animal), class: "mr-3" %>
+        <%= link_to "Delete", animal_path, method: :delete %>
+      <% end %>
+    </div>
+    <div class="col"> 
+      <p>
+        <strong>Age:</strong>
+        <%= @animal.get_age %>
+      </p>
+      <p>
+        <strong>Weight:</strong>
+        <%= @animal.weight %>
+      </p>
+      <p>
+        <strong>Species:</strong>
+        <%= @animal.species %>
+      </p>
+      <p>
+        <strong>Location:</strong>
+        <%= @animal.owner.get_simple_location %>
+      </p>
+      <p>
+        <strong>Category:</strong>
+        <%= @animal.category.name %>
+      </p>
+      <% if @animal.sponsored%>
+        <p>
+          <strong>Sponsored by: </strong>
+          <%= @animal.sponsorship.sponsor.first_name %>
+          <% if user_is_animal_sponsor(@animal) || user_is_sanctuary_and_owner(@animal) || current_user&.admin? %>
+            Sponsored At: <%= @animal.sponsorship.created_at %>
+            Sponsorship Ends At: <%= @animal.sponsorship.created_at + 1.year %>
+          <% end %>
+        </p>
+      <% end %>
+      <p>
+        <strong>Owner:</strong>
+        <%= @animal.owner.full_name %>
+      </p>
+      <% if !current_user&.sanctuary? && !@animal.sponsored? %>
+        <h5>Sponsor for 1 Year:</h5>
+        <%=button_to "Sponsor: $#{@animal.sponsor_price / 100.0}", create_payment_path, method: :post, remote: true, params: {id: @animal.id} %>
+      <% end %>
+      <%= link_to 'Back', animals_path %>
+    </div>
+    <div class="col-6 text-center">
+      <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal) || user_is_animal_sponsor(@animal))%>
+        <h3>Uploads by Owner</h3>
+        <div class="d-flex flex-wrap justify-content-center mt-5">
+          <% @animal.media.each do |media| %>
+            <div style="width: 40%" class="d-flex flex-column justify-content-end">
+              <%= image_tag media, class: "w-100 img-thumbnail"%>
+              <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
+                <%= link_to "Delete Image", animals_media_path(:id => @animal, :media_id => media.id), method: :delete, data: {confirm: "Are you sure?"}, class: "d-block" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <% if (current_user&.admin? || user_is_sanctuary_and_owner(@animal)) %>
+          <%= form_with url: animals_media_path(@animal), method: :post do |form| %>
+            <div class="form-group text-left mt-3">
+              <%= form.label :media, "Add More Photos" %>
+              <%= form.file_field :media, multiple: true, accept: "image/jpg,image/png", class: "form-control-file" %>
+              <%= form.submit "Add Photos", class: "mt-3" %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mt-5 justify-content-center flex-column align-items-center">
+    <% if (@animal.sponsorship && (current_user&.admin? || user_is_sanctuary_and_owner(@animal) || user_is_animal_sponsor(@animal)))%>
+    <p>Have a question about <%=@animal.name%>, or want to request a photo. Chat below: </p>
+      <div class="border border-primary p-2 w-50">
+        <% @animal.sponsorship.chat.messages.each do |msg| %>
+          <p class=<%=current_user&.id == msg.sender.id ? "text-left" : "text-right" %>><%=msg.sender.first_name %> - <%=msg.body%></p>
+        <% end %>
+        <%= form_with url: new_message_path(@animal), method: :post, class: "mt-5" do |form|%>
+          <div class="form-group text-center">
+            <%= form.label :message, "New Message:" %>
+            <%= form.text_area :message, class: "form-control" %>
+            <%= form.submit "Send Message" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  
+    
+  </div>
+</main>
+
